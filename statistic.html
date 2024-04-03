@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STATISTIC</title>
+    <link rel="stylesheet" href="sstyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <style>
+        .containe {
+            display: flex; /* Utiliser Flexbox pour mettre les éléments côte à côte */
+        }
+
+        .graph,
+        .graphBox {
+            flex: 1; /* Partage de l'espace disponible entre les éléments côte à côte */
+            margin-right: 20px; /* Ajoute une marge pour l'espace entre les éléments */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2><span class="danger">STATISTIC</span></h2>
+    <div class="containe">
+        <div class="graphBox">
+            <span class="name1">The average distance traveled per vehicle </span>
+            <div class="box">
+                <h2><span class="na1">VEHICLE 1 </span></h2>
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="box1">
+                <h2><span class="na1">VEHICLE 2 </span></h2>
+                <canvas id="myChart2"></canvas>
+            </div>
+        </div>
+        <div class="graph">
+            <div class="box5">
+                <h2><span class="na1"> Fuel consumption average </span></h2>
+                <canvas id="myChart3"></canvas> <!-- ID modifié pour éviter les doublons -->
+            </div>
+            <div class="box2">
+                <h2><span class="na1">Utilisation rates of vehicle </span></h2>
+                <canvas id="myChart4"></canvas> <!-- ID modifié pour éviter les doublons -->
+            </div>
+        </div>
+    </div>
+</div>
+<script src="my_chart.js"></script>
+</body>
+</html>

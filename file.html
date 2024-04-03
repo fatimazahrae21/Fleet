@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DASHBOARD</title>
+    <script>
+        // Initializing variables and WebSocket connections
+        let notifications = []; // Array to store displayed notifications
+        let valeurs; // Declaring the "valeurs" variable outside the socket event listener function
+        let n = 0; // Counter for notifications
+        const socket = new WebSocket('ws://localhost:1880/jplearning'); // WebSocket connection for jplearning
+        const sockett = new WebSocket('ws://localhost:1880/vehicle'); // WebSocket connection for vehicle
+        
+        // Event listener for WebSocket message from jplearning
+        socket.addEventListener('message', (event) => { 
+            const message = event.data;
+            valeurs = extraireValeurs(message);
+    
+            // Displaying values
+            for (const key in valeurs) {
+                if (Object.hasOwnProperty.call(valeurs, key)) {
+                    document.getElementById(key).textContent = valeurs[key];
+                }
+            }
+    
+            // Comparing values with thresholds and processing notifications
+            processNotifications(valeurs);
+        });
+    
+        // Event listener for WebSocket message from vehicle
+        sockett.addEventListener('message', (event) => { 
+            const message = event.data;
+            valeurs = extraireValeurs2(message);
+    
+            // Displaying values
+            for (const key in valeurs) {
+                if (Object.hasOwnProperty.call(valeurs, key)) {
+                    document.getElementById(key).textContent = valeurs[key];
+                }
+            }
+    
+            // Comparing values with thresholds and processing notifications
+            processNotifications(valeurs);
+        });
+    
+        // Function to extract values from the message
+        function extraireValeurs(message) {
+            const valeurs = {};
+            const regex = /(?:TP|BC|AS|FL|MT|DL|LS|HV|AF|FS|SB|EC)\s*:\s*([\d.]+)/g;
+            let match;
+            while ((match = regex.exec(message)) !== null) {
+                const cle = match[0].split(':')[0].trim();
+                const valeur = parseFloat(match[1]);
+                valeurs[cle] = valeur;
+            }
+            return valeurs;
+        }
+    
+        // Function to extract values for vehicle 2
+        function extraireValeurs2(message) {
+            const valeurs = {};
+            const regex = /(?:AS1|DL1|LS1|HV1|AF1|FS1|SB1|EC1)\s*:\s*([\d.]+)/g;
+            let match;
+            while ((match = regex.exec(message)) !== null) {
+                const cle = match[0].split(':')[0].trim();
+                const valeur = parseFloat(match[1]);
+                valeurs[cle] = valeur;
+            }
+            return valeurs;
+        }
+    
+        let id = []; // Array to store active notification IDs
+    
+        // Function to process notifications based on threshold values
+        function processNotifications(valeurs) {
+            const val = [valeurs.TP, valeurs.BC, valeurs.AS, valeurs.FL, valeurs.DL, valeurs.LS, valeurs.HV, valeurs.AF, valeurs.FS, valeurs.SB, valeurs.EC];
+            const thresholds = [2, 40, 0.5, 15, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5];
+            notifications = [];
+    
+            for (let i = 0; i < 11; i++) {
+                if (val[i] < thresholds[i]) {
+                    if (!notifications.includes(i)) {
+                        displayNotification(getKeyByIndex(i), val[i]);
+                        notifications.push(i);
+                        id.push(i);
+                        n = id.length;
+                    }
+                } else if (val[i] > thresholds[i]) {
+                    const index = id.indexOf(i);
+                    if (index !== -1) {
+                        notifications.splice(index, 1);
+                        id.splice(index, 1);
+                        var notificationDiv = document.getElementById("notification-container");
+                        notificationDiv.innerHTML = '';
+                        n = 0;
+                    }
+                }
+            }
+            updateNotificationCount();
+        }
+    
+        // Function to display notifications
+        function displayNotification(key, value) {
+            const notificationContainer = document.getElementById('notification-container');
+            const notificationMessage = getNotificationMessage(key, value);
+            const notificationItem = document.createElement('div');
+            notificationItem.textContent = notificationMessage;
+            notificationContainer.appendChild(notificationItem);
+        }
+    
+        // Function to update notification count
+        function updateNotificationCount() {
+            document.getElementById('n').textContent = n;
+        }
+    
+        // Function to generate notification message based on key and value
+        function getNotificationMessage(key, value) {
+            switch (key) {
+                case 'TP':
+                    return `Low tire pressure detected: ${value}`;
+                case 'BC':
+                    return `Low battery capacity detected: ${value}`;
+                case 'AS':
+                    return 'Airbag status alert';
+                case 'AF':
+                    return 'Dirty Air filter';
+                case 'LS':
+                    return 'Check lighting system';
+                case 'DL':
+                    return 'Door unlocked';
+                case 'SB':
+                    return 'Belt system problem';
+                case 'EC':
+                    return 'Check the cooling system';
+                case 'FL':
+                    return `Low fuel level: ${value}`;
+                case 'MT':
+                    return 'High engine temperature detected';
+                case 'HV':
+                    return 'Filter problem';
+                case 'FS':
+                    return 'Fluid leak detected';
+                default:
+                    return '';
+            }
+        }
+    
+        // Function to get the corresponding key by index
+        function getKeyByIndex(index) {
+            const keys = ['TP', 'BC', 'AS', 'FL', 'DL', 'LS', 'HV', 'AF', 'FS', 'SB', 'EC'];
+            return keys[index];
+        }
+    </script>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+   
+   <style>
+        .danger {
+            color: rgb(156, 10, 10);
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .VS {
+            margin-top: 20px; /* Ajoutez de l'espace en haut du tableau */
+        }
+
+        nav, .VS {
+            margin-bottom: 20px; /* Ajoutez de l'espace en bas du tableau et du texte DASHBOARD */
+        }
+
+        .logo {
+            margin-bottom: 10px; /* Ajoutez de l'espace en bas du texte DASHBOARD */
+        }
+
+
+/* Style pour les cellules d'en-tête */
+th {
+  background-color: #f2f2f2;
+  text-align: center;
+  padding: 8px;
+}
+
+/* Style pour les cellules de données */
+td {
+  text-align: center;
+}
+tr:hover {
+  background-color: #ddd;
+}
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+</head>
+<body onload="initClock()">
+<div class="container">
+    <!-- aside section start -->
+    <aside>
+        <head>
+            <title>Changer la couleur du texte</title>
+            <style>
+                .danger {
+                    color: rgb(156, 10, 10); /* Définit la couleur du texte en blanc */
+                }
+            </style>
+        </head>
+        <body>
+            <h2><span class="danger">WELCOME</span></h2>
+        </body>
+        <!-- end top -->
+
+        <div class="button-container">
+            <button onclick="afficherInfo()"> <img src="car-removebg-preview(1).png" alt="A"></button>
+            <div id="myinfo" class="info">
+                <div class="info-content">
+                    <div class="vehicle1">
+                        <img src="ford_kuga-removebg-preview.png" alt="img">
+                        <div class="text-content">
+                            <h12><strong>FORD kuga</strong></h12>
+                            <h13 class="active-text">ACTIVE</h13>
+                        </div>
+                    </div>
+                    <div class="infovehicle1"> 
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Vehicle Status</th>
+                                    <th>Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Battery capacity</td>
+                                    <td><p id="BC"></p></td>
+                                </tr> 
+                                <tr>
+                                    <td>Tire pressure</td>
+                                    <td><p id="TP"></p></td>
+                                </tr> 
+                                <tr>
+                                    <td>Fuel level</td>
+                                    <td><p id="FL"></p></td>
+                                </tr> 
+                                <tr>
+                                    <td>Engine temperature</td>
+                                    <td><p id="MT"></p></td>
+                                </tr> 
+                                <tr>
+                                    <td>Airbag stat</td>
+                                    <td><p id="AS"></p></td>
+                                </tr> 
+                                <tr>
+                                    <td>Door look sensor</td>
+                                    <td><p id="DL"></p></td>
+                                </tr> 
+                                <tr>
+                                    <td>Seat belt sensor</td>
+                                    <td><p id="SB"></p></td>
+                                </tr> 
+                                <tr>
+                                    <td>Engine colling sensor</td>
+                                    <td><p id="EC"></p></td>
+                                </tr> 
+                                <tr>
+                                    <td>lighting sensor</td>
+                                    <td><p id="LS"></p></td>
+                                </tr> 
+                                <tr>
+                                    <td>HVAC</td>
+                                    <td><p id="HV"></p></td>
+                                </tr> 
+                                <tr>
+                                    <td>Air filter sensor</td>
+                                    <td><p id="AF"></p></td>
+                                </tr> 
+                                <tr>
+                                    <td>Fluid leak sensor</td>
+                                    <td><p id="FS"></p></td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    
+                    
+                </div>
+              </div>
+                    </script>
+            <button onclick="afficherInfo1()"> <img src="car-removebg-preview.png" alt="b"></button>
+            <div id="myinfo1" class="info1">
+                <div class="info-content1">
+                    <div class="vehicle1">
+                        <img src="ford_kuga-removebg-preview.png" alt="img">
+                        <div class="text-content">
+                            <h12><strong>FORD kuga</strong></h12>
+                            <h13 class="active-text">ACTIVE</h13>
+                        </div>
+                    </div>
+                    <div class="infovehicle1"> 
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Vehicle Status</th>
+                                    <th>Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Airbag stat</td>
+                                    <td><p id="AS1"></p></td>
+                                </tr> 
+                                <tr>
+                                    <td>Door look sensor</td>
+                                    <td><p id="DL1"></p></td>
+                                </tr> 
+                                <tr>
+                                    <td>Seat belt sensor</td>
+                                    <td><p id="SB1"></p></td>
+                                </tr> 
+                                <tr>
+                                    <td>Engine colling sensor</td>
+                                    <td><p id="EC1"></p></td>
+                                </tr> 
+                                <tr>
+                                    <td>lighting sensor</td>
+                                    <td><p id="LS1"></p></td>
+                                </tr> 
+                                <tr>
+                                    <td>HVAC</td>
+                                    <td><p id="HV1"></p></td>
+                                </tr> 
+                                <tr>
+                                    <td>Air filter sensor</td>
+                                    <td><p id="AF1"></p></td>
+                                </tr> 
+                                <tr>
+                                    <td>Fluid leak sensor</td>
+                                    <td><p id="FS1"></p></td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    
+                    
+                </div>
+              </div>
+            <button> <img src="car-removebg-preview(4).png" alt="z"></button>
+            <button> <img src="car-removebg-preview3.png" alt="c"></button>
+            
+        </div>
+        <div class="image-container"></div>
+    </aside>
+    <!-- aside section end -->
+    <!-- main section start -->
+    <main class="main-content">
+        <nav>
+            <div class="logo">  DASHBOARD  </div> 
+            <div class="icon" onclick="toggleNotifi()">
+                <img src="bell-removebg-preview.png" alt=""> <span id="n"></span>
+            </div>
+            <div class="notifi-box" id="box">
+                <div class="vehicle2">
+                    <div style="display: inline-block;">
+                        <img src="ford_kuga-removebg-preview.png" alt="img" style="width: 80px;height: 50px;">
+                    </div>
+                    <div class="text-content" style="display: inline-block; margin-left: 10px;">
+                        <h2><strong>FORD kuga</strong></h2>
+                        <h3 class="active-text">ACTIVE</h3>
+                    </div>
+                </div>
+                
+                <div id="notification-container"></div>
+            </div>
+            
+        </nav>
+<div class="insights">  
+        <div class="VS"> 
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vehicle Status</th>
+                        <th>Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Active</td>
+                        <td>1</td>
+                    </tr> 
+                    <tr>
+                        <td>Out of service</td>
+                        <td>1</td>
+                    </tr> 
+                    <tr>
+                        <td>Inactive</td>
+                        <td>4</td>
+                    </tr> 
+                    <tr>
+                        <td>In shop</td>
+                        <td>2</td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+        <div class="AWO"> 
+            <table>
+                <thead>
+                    <tr>
+                        <th>Active Work_Orders</th>
+                        <th>Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Inbox</td>
+                        <td>1</td>
+                    </tr> 
+                    <tr>
+                        <td>In progress</td>
+                        <td>1</td>
+                    </tr> 
+                    <tr>
+                        <td>Waiting for parts</td>
+                        <td>4</td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </main>
+    <!-- main section end -->
+    <!-- right section start --> 
+    <right>
+        <div class="RT">
+        <h4>ADMIN</h4>
+            <span class="material-symbols-outlined">
+                account_circle
+                </span>
+      
+    </div>
+
+<div class="datetime">
+    <div class="date">
+    <span id="dayname">Day</span>, 
+    <span id="month">Month</span> 
+    <span id="daynum">0</span>, 
+    <span id="year">Year</span> 
+</div>
+    <div class="time">
+    <span id="hour">00</span>: 
+    <span id="minutes">00</span>:
+    <span id="seconds">00</span> 
+    <span id="period">AM</span>
+    </div>
+    </div>
+    <div class="fleet-info">
+        <h2>Fleet Information</h2>
+        <p><strong>Fleet name:</strong> Group_8</p>
+        <p><strong>Vehicles number :</strong> 6</p>
+
+    </div>
+        <div class="HSC">
+            <div><a class="button" href="connect.php"><strong>HISTORIC</strong></a></div>
+            <div><a class="button" href="statistic.html"><strong>STATISTIC</strong></a></div>
+            <div><a class="button" href="cost.html"><strong>COST</strong></a></div>
+        </div> 
+         <!--end right section -->
+    </right>
+   
+</div>
+<script src="script.js"></script>
+
+</body>
+</html>

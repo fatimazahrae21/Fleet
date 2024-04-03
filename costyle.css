@@ -1,0 +1,108 @@
+body{
+    background-image: url(Design\ sans\ titre\ \(1\).png);
+ }
+ aside{
+    width: 600px;
+ }
+ .graphBox
+ {
+    color: rgb(150, 0, 30);
+position: relative;
+background-color: #fff;
+width: 500px;
+margin-left: 20px;
+padding: 20px;
+display: grid;
+grid-template-columns: 1fr 2fr;
+grid-gap: 30px;
+min-height: 200px;
+ }
+.graphBox .box
+{
+position: relative;
+background: #fff;
+padding: 20px;
+width: 450px;
+height:  auto;
+box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+border-radius: 20px;
+}   
+.graphBox .box1
+{
+position: relative;
+background: #fff;
+padding: 20px;
+width: 450px;
+height:  auto;
+box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+border-radius: 20px;
+}
+.graphBox
+{
+  grid-template-columns: 1fr;
+  height: auto;
+  margin-left: 20px;
+}
+.name1{
+    font-size: 25px;
+    font-weight: bold;
+    position: relative;
+    margin-left: 2px;
+}
+.danger {
+    color: rgb(146, 0, 29);
+    background-color: rgb(255, 255, 255); /* Couleur de fond rouge */
+    padding: 15px 550px; 
+    display: inline-block; 
+    margin-bottom: 1px;
+    margin-left: 20px; /* Réinitialisation de la marge gauche à zéro */
+    text-align: left;
+}
+.graphBox {
+    float: left;
+    width: 50%;
+}
+
+.graph {
+    position: relative;
+background: #fff;
+padding: 20px;
+margin-left: 20px;
+    float: left;
+    width: 50%;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+main{
+width: 600px ;
+}
+.graph .box5
+{
+    color: rgb(150, 0, 30);
+position: relative;
+background: #fff;
+padding: 20px;
+width: 450px;
+height:  500px;
+box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+border-radius: 20px;
+}
+.graph .box2
+{
+    color: rgb(150, 0, 30);
+position: relative;
+background: #fff;
+padding: 20px;
+width: 450px;
+height:  300px;
+margin-top: 5px;
+box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+border-radius: 20px;
+}
+.na1{
+    color: rgb(150, 0, 30);;
+}

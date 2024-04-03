@@ -1,0 +1,43 @@
+body{
+    background-image: url(Design\ sans\ titre\ \(1\).png);
+}
+aside{
+    width: 600px;    
+ }
+ .graphBox .box
+{
+    color: rgb(150, 0, 30);
+position: relative;
+background: #fff;
+padding: 20px;
+width: 1120px;
+height:  auto;
+box-shadow: 0 7px 25px rgba(2, 2, 2, 0.801);
+margin-left: 20px; 
+border-radius: 20px;
+} 
+.danger {
+    color: rgb(146, 0, 29);
+    background-color: rgb(255, 255, 255); /* Couleur de fond rouge */
+    padding: 15px 520px; 
+    display: inline-block; 
+    margin-bottom: 1px;
+    margin-left: 20px; /* Réinitialisation de la marge gauche à zéro */
+    text-align: left;
+}  
+aside{
+    width: 600px;    
+ }
+ .graphBox1 .box1
+{
+    color: rgb(150, 0, 30);
+position: relative;
+background: #fff;
+padding: 20px;
+width: 1120px;
+height:  auto;
+box-shadow: 0 7px 25px rgba(30, 29, 29, 0.922);
+margin-top: 10px;
+margin-left: 20px; 
+border-radius: 20px;
+} 

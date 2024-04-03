@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for character set, compatibility, and viewport -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Title of the page -->
+    <title>COST</title>
+    
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="costyle.css">
+    
+    <!-- Link to Font Awesome library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Link to Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+</head>
+<body>
+    <!-- Main container -->
+    <div class="container">
+        <!-- Heading for the page -->
+        <h2><span class="danger">COST</span></h2>
+        
+        <!-- Sub-container for graphs -->
+        <div class="containe">
+            <!-- Container for graphs and gauge -->
+            <div class="graph">
+                <!-- Box for fuel costs graph -->
+                <div class="box2">
+                    <!-- Heading for fuel costs -->
+                    <h2><span class="na1">Fuel costs </span></h2>
+                    <!-- Canvas element for displaying fuel costs chart -->
+                    <canvas id="myChart4"></canvas>
+                </div>
+                
+                <!-- Gauge for fuel level -->
+                <div class="gauge">
+                    <!-- Heading for fuel level -->
+                    <h2><span class="na1">Fuel Level</span></h2>
+                    <!-- Meter element to represent fuel level -->
+                    <meter id="fuelMeter" min="0" max="100" value="0"></meter>
+                    <!-- Placeholder for displaying fuel level value -->
+                    <p id="fuelLevelValue"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript file for handling cost-related functionalities -->
+    <script src="costjs.js"></script>
+</body>
+</html>

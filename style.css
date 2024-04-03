@@ -1,0 +1,355 @@
+body {
+    background-image: url(Design\ sans\ titre\ \(1\).png);
+}
+/* Ajustements pour la section "aside" */
+aside {
+    width: 280px;
+  
+}
+:root{
+--clr-primary:
+#7380ec;
+--clr-danger: #ff7782;
+--clr-success:
+#41f1b6;
+--clr-white: #fff;
+--clr-info-dark: #7d8da1;
+--clr-info-light: ☐ #dce1eb;
+--clr-dark: #363949;
+--clr-warnig: #ff4edc;
+--clr-light: Orgba(132, 139, 200, 0.18); --clr-primary-variant: #111e88;
+--clr-dark-variant: #677483; --clr-color-background: #f6f6f9;
+--card-border-radius: 2rem;
+--border-radius-1: 0.4rem;
+--border-radius-2: 0.8rem;
+--border-radius-3: 1.2rem;
+--card-padding: 1.8rem;
+--padding-1: 1.2rem;
+--box-shadow: 0 2rem 3rem var(--clr-light);}
+/* Ajustements pour la section "main" */
+main {
+    flex-grow: 1; /* Permet à la section "main" de prendre l'espace restant disponible */
+    padding: 20px; /* Espace intérieur de la section "main" */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+h1 {
+    margin-right: 700px;
+    margin-top: 5px;
+    margin-bottom: 10px; 
+    background-color:rgb(63, 7, 7); 
+    padding: 10px 51px; 
+    display: inline-block; 
+}
+
+.date {
+    width: 100%; /* Ajuste la largeur de l'élément de date à 100% de la largeur de la section "main" */
+}
+
+right {
+    width: 250px; /* Largeur de la section "right" */
+    padding: 20px; /* Espace intérieur de la section "right" */
+}
+
+.container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+.button-container img {
+    width: 70px; /* Ajustez la largeur de l'image selon vos besoins */
+    height: 40px; /* Garantit que la hauteur s'ajuste automatiquement pour conserver les proportions de l'image */
+}
+.button-container{
+    background-image: url(parking\(1\)\(1\).png);
+    width: 250px;
+    height: 353px;
+   
+}
+.danger {
+    background-color:white; /* Couleur de fond rouge */
+    padding: 15px 60px; 
+    display: inline-block; 
+    margin-bottom: 5px;
+}
+.HSC {
+    display: flex;
+    align-items: center;
+}
+.button-container {
+    margin-top: 10px;
+}
+
+button {
+    margin-left: 20px; 
+    margin-top: 25px;
+    margin-right: 20px;
+    background: transparent; 
+    font-size: 70px;
+    color: white;
+    border: none; /* Supprime la bordure */
+    cursor: pointer;
+}
+
+.button {
+    background-color: #791305;
+    border: none;
+    color: white;
+    padding: 15px;
+    text-align: center; text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    margin: 4px 2px; border-radius: 2rem;
+    }
+nav {
+    
+    display: flex; align-items: center;
+    background: white;
+    height: 60px;
+    position: relative;}
+    .icon {
+    cursor: pointer;
+    margin-right: 20px;
+    Line-height:60px;
+    }
+
+    
+    .icon span {
+    
+    background: rgb(148, 3, 3); padding: 7px;
+    border-radius: 50%; color: #fff;
+    vertical-align: top; margin-left: -25px;}
+
+    .icon img {
+    display: inline-block; 
+    width: 35px;
+
+    margin-top: 20px;}
+
+    .icon:hover { opacity:.7;
+    }
+  
+    
+  .logo {
+    background-color: white; /* Couleur de fond du rectangle */
+    margin-right: 480px;
+    color: rgb(167, 9, 9); /* Couleur du texte */
+    padding: 0px 6px; /* Ajoutez un peu de marge à l'intérieur du rectangle */
+    border-radius: 5px; /* Ajoutez des coins arrondis au rectangle */
+    margin-bottom: 0px; /* Ajoutez de l'espace en bas du rectangle */
+    display: inline-block; /* Assurez-vous que le rectangle s'ajuste autour du texte */
+    font-weight: bold; /* Mettez le texte en gras */
+    text-align: left; /* Alignez le texte à gauche */
+}
+
+    .notifi-box {
+    margin-top: 600px;
+    width: 300px;
+    height: 0px;
+    opacity: 0;
+    background-color: white;
+    position: absolute;
+    transition-property: 63px;
+    right: 35px;
+    transition: 1s opacity,250ms height;
+    box-shadow: 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0,0,0.19);
+    }
+    
+    .notifi-box h4 {
+    font-size: 14px; padding: 10px;
+    border-bottom: 1px solid #eee;
+    color: #999;
+    }
+   
+    .notifi-item:hover {
+   
+    background-color: #eee; }
+
+    .notifi-item img {
+   
+    display: block;
+    width: 100px;
+    height: 50px;
+    margin-right: 10px; 
+    border-radius: 50%; }
+    .notifi-item .text h5 {
+    color: #777;
+    font-size: 16px;
+    margin-right: 10px;
+    }
+
+    .notifi-item {
+        display: flex;
+        align-items: center;
+    }
+    
+ 
+    
+    .notifi-item h7 {
+        margin: 50px; /* Supprime la marge du titre "Ford" pour un alignement parfait avec l'image */
+    }
+    
+
+    main .VS table{
+    
+    background-color: var(--clr-white);
+    width: 100%;
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    transition: all .3s ease;
+    color: var(--clr-dark);}
+    main .AWO table{
+    
+        background-color: var(--clr-white);
+        width: 100%;
+        height: 60%;
+        border-radius: var(--card-border-radius);
+        padding: 20px 30px;
+        text-align: center;
+        box-shadow: var(--box-shadow);
+        transition: all .3s ease;
+        color: var(--clr-dark);}
+
+    main .recent_order table:hover{ box-shadow:#353333 ;
+    }
+    main table tbody tr{
+    height: 3.8rem;
+    border-bottom: 1px solid var(--clr-white); color: var(--clr-dark-variant);
+    }
+    main table tbody td{
+    
+    height: 3.8rem;
+    border-bottom: 1px solid var(--clr-white);}
+
+    th {
+        padding-right: 50px; /* Ajoutez une marge à droite pour espacer les colonnes */
+    }
+    main .insights {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Correction du gap avec rem */
+        gap: 1.6rem;
+    }
+    
+    main .insights>div {
+        margin-top: 1px;
+        margin-right: 20px;
+        box-shadow: var(--box-shadow); /* Correction de l'espace supplémentaire */
+        transition: all 0.3s ease;
+    }
+    
+    .info {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+        padding-top: 60px;
+      }
+      
+      .info-content {
+        background-color: rgb(253, 253, 253);
+        margin: 5% auto;
+        padding: 20px;
+        border: 5px solid #bebebe;
+        width: 20%;
+      }
+      .info1 {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+        padding-top: 60px;
+      }
+      
+      .info-content1 {
+        background-color: rgb(253, 253, 253);
+        margin: 5% auto;
+        padding: 20px;
+        border: 5px solid #bebebe;
+        width: 20%;
+      }
+.RT{
+    background-color:white; /* Couleur de fond rouge */
+   color: #791305;
+    padding: 0px 35px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+      
+.RT h4 {
+    margin-right: 110px; /* Ajoutez de la marge à droite du texte "ADMIN" */
+}
+
+.datetime{ 
+    margin-top: 19px;
+    color: #5f0303;
+    background: white;
+    width: 229px;
+    padding: 15px 10px;
+    }
+
+.datetime:hover{
+background: #4e4b4b;
+}
+
+    .date{
+    
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center; letter-spacing: 3px;}
+
+
+.time{
+font-size: 13px; display: flex;
+justify-content: center; align-items: center;}
+.time span:not(:last-child){ position: relative;
+margin: 0 6px;
+font-weight: 600; text-align: center;
+letter-spacing: 3px;
+}
+
+.time span:last-child{ 
+    background: #ebe8e8; font-size: 10px; font-weight: 600;
+    text-transform: uppercase; 
+    padding: 0 5px;
+    border-radius: 3px;
+    }
+    .vehicle1 {
+        border-radius: 10px; /* Adjust the value as needed */
+        border: 1px solid #ccc; /* Add border for better visibility */
+        padding: 10px; /* Add padding for better spacing */
+        background-color: rgb(197, 196, 196);
+        display: flex; /* Use flexbox to align items */
+        align-items: center; /* Center items vertically */
+    }
+    .text-content {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+    }
+    .active-text {
+        color: green; /* Sets the text color to green */
+    }
+    .text-content h12 {
+        font-size: 20px; /* Ajustez la taille de la police selon vos besoins */
+      } 
+      .icon p {
+        font-size: 2px; /* Ajustez la taille de la police selon vos besoins */
+      } 
+      
